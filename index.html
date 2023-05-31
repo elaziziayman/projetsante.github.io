@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>InfoSanté</title>
+  <link rel="icon" href="img/img.png" type="image/png">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="./libs/leaflet/leaflet.css">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="./libs/leaflet/dist/leaflet.fullscreen.css">
+
+  <style>
+    .chatbot-container {
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    .chatbot-container h2 {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .chatbot-container a {
+      display: inline-block;
+      background-color: #007bff;
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 4px;
+      text-decoration: none;
+      margin-bottom: 10px;
+    }
+
+    .chatbot-container img {
+      max-width: 100%;
+      height: auto;
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="index.html"><img class="navbar-logo-left" src="img/logo.png" alt="logo"></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+        aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="navbar-brand navbar-title1">
+        <a href="repartition.html" target="_blank">Consulter la répartition des établissements de santé au Maroc </a>
+      </div>
+      <div class="navbar-brand navbar-title">
+        <a href="situation.html" class="nav-link" target="_blank">Propagation du virus VRT au Maroc</a>
+      </div>
+      <a class="navbar-brand" href="http://www.ehtp.ac.ma/" target="_blank"><img class="navbar-logo"
+          src="img/LogoEHTP.jpg" alt="Ehtp logo"></a>
+    </div>
+  </nav>
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-5">
+        <div class="sidebar">
+          <div class="form-group">
+            <label for="levelSelect">Niveau :</label>
+            <select id="levelSelect" class="form-control">
+              <option value="regions">Régions sanitaires</option>
+              <option value="provinces">Provinces sanitaires</option>
+            </select>
+          </div>
+
+          <!-- Indicator selector -->
+          <div class="form-group">
+            <label for="indicators">Sélectionnez un indicateur :</label>
+            <select id="indicators" class="form-control">
+              <option value="pop">Population</option>
+              <option value="hpm">Habitants par médecin</option>
+              <option value="hps">Habitants par Scanner</option>
+              <option value="hplm">Habitans par lit médical</option>
+              <option value="hpi">Habitants par infirmier</option>
+              <option value="hpessp">Habitants par Essp</option>
+              <option value="hpop">Habitants par officine de pharmacie</option>
+            </select>
+          </div>
+
+          <!-- Attribute table -->
+          <div id="attributeTable" class="attribute-table">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">nom</th>
+                  <th scope="col" id="indicatorHeader"></th>
+                </tr>
+              </thead>
+              <tbody id="tableBody"></tbody>
+            </table>
+          </div>
+          <button id="downloadButton" class="btn btn-download">Download Data <span></span><svg
+              xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+              class="bi bi-table" viewBox="0 0 16 16">
+              <path
+                d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm15 2h-4v3h4V4zm0 4h-4v3h4V8zm0 4h-4v3h3a1 1 0 0 0 1-1v-2zm-5 3v-3H6v3h4zm-5 0v-3H1v2a1 1 0 0 0 1 1h3zm-4-4h4V8H1v3zm0-4h4V4H1v3zm5-3v3h4V4H6zm4 4H6v3h4V8z" />
+            </svg></button>
+
+          <div class="form-group">
+            <select id="statisticalValue">
+              <option value="mean">Mean</option>
+              <option value="median">Median</option>
+              <option value="min">Min</option>
+              <option value="max">Max</option>
+            </select>
+          </div>
+          <canvas id="barGraph"></canvas>
+        </div>
+      </div>
+
+      <div class="col-md-7">
+        <div class="map-container" id="map-container">
+          <div id="map" class="map">
+            <div id="legend"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="chatbot-container">
+        <h2>Consulter le chatbot si vous êtes malade</h2>
+        <a href="http://127.0.0.1:5000/" target="_blank" style="text-decoration: none;">
+          <img src="img/chatbot.jpg" alt="Chatbot" style="height: 200px; width: 200px; border-radius: 50%; display: block; margin: 0 auto;">
+        </a>
+      </div>
+  </div>
+
+  <script src="./libs/leaflet/leaflet.js"></script>
+  <script src="./libs/leaflet/dist/Leaflet.fullscreen.min.js"></script>
+  <script src="https://unpkg.com/leaflet-image"></script>
+  <script src="./libs/leaflet/dist/bundle.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-ajax/2.1.0/leaflet.ajax.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="main.js"></script>
+
+  <script>
+    var mapId = document.getElementById('map');
+
+    function fullscreenview() {
+      mapId.requestFullscreen();
+    }
+  </script>
+</body>
+
+</html>

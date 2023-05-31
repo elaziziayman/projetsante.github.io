@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="../static/style.css">
+    <link rel="stylesheet" type="text/css" href="../static/animation.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  </head>
+  <body>
+    <header>
+      <div class="profile">
+        <div class="dp"></div>
+        <h3>EnduraBot</h3>
+      </div>
+    </header>
+    <div style="background-image: url(../static/bg.jpeg); background-size: cover;">
+      <div id="chatbox">
+        <p class="botText animated slideInLeft"><span>Hi There! My name is Endura, I am a medical chatbot.</span></p>
+        <p class="botText animated slideInLeft"><span> You can begin conversation by typing in a message and pressing send.</span></p>
+      </div>
+      <div id="userInput">
+        <input id="textInput" type="text" name="msg" placeholder="Type a message">
+        <input id="buttonInput" type="submit" value="Send">
+      </div>
+
+
+
+      <script>
+        function getBotResponse() {
+          var rawText = $("#textInput").val();
+          var userHtml = '<p class="userText animated slideInRight"><span>' + rawText + '</span></p>';
+          $("#textInput").val("");
+          $("#chatbox").append(userHtml);
+          document.getElementById('userInput').scrollIntoView({block: 'start', behavior: 'smooth'});
+          $.get("/get", { msg: rawText }).done(function(data) {
+            var botHtml = '<p class="botText animated slideInLeft"><span>' + data + '</span></p>';
+            $("#chatbox").append(botHtml);
+            document.getElementById('userInput').scrollIntoView({block: 'start', behavior: 'smooth'});
+          });
+        }
+        $("#textInput").keypress(function(e) {
+            if(e.which == 13) {
+                getBotResponse();
+            }
+        });
+        $("#buttonInput").click(function() {
+          setInterval (getBotResponse(),5000);
+        })
+      </script>
+    </div>
+  </body>
+</html>

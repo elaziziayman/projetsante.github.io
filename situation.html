@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Situation du virus au Maroc</title>
+    <link rel="icon" href="img/img.png" type="image/png">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./libs/leaflet/leaflet.css">
+    <link rel="stylesheet" href="situation.css">
+    <link rel="stylesheet" href="./libs/leaflet/dist/leaflet.fullscreen.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol/dist/L.Control.Locate.min.css" />
+
+
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg ">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html"><img class="navbar-logo-left " src="img/logo.png" alt="logo"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-brand navbar-title">
+                Propagation du virus au Maroc
+            </div>
+            <a class="navbar-brand" href="http://www.ehtp.ac.ma/" target="_blank"><img class="navbar-logo" src="img/LogoEHTP.jpg" alt="Ehtp logo"></a>
+            
+
+            
+        </div>
+    </nav>
+    <div id="legend"></div>
+    
+                    <div class="case-info">
+                        <div class="case-count">
+                            <span class="case-text">Nombre de cas:</span>
+                            <span class="case-number">21,001</span>
+                        </div>
+                        <div class="recovered-count">
+                            <span class="recovered-text">Nombre de guéris:</span>
+                            <span class="recovered-number">212</span>
+                        </div>
+                        <div class="death-count">
+                            <span class="death-text">Nombre de décès:</span>
+                            <span class="death-number">103</span>
+                        </div>
+                    </div>
+
+    <div class="container-fluid">
+        <div class="row justify-content-center align-items-center" >
+            <div class="col-md-8">
+                <div class="map-container">
+                    <div id="map" class="map"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+            
+          
+
+    
+    <script src="./libs/leaflet/leaflet.js"></script>
+    <script src="./libs/leaflet/dist/Leaflet.fullscreen.min.js"></script>
+    <script src="./libs/leaflet/dist/L.Control.Locate.js"></script>
+    <script src="https://unpkg.com/leaflet-image"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-ajax/2.1.0/leaflet.ajax.min.js"></script>
+
+    <script src="situation.js"></script>
+
+   
+</body>
+</html>
